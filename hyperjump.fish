@@ -25,6 +25,11 @@ function __hj_list_nicks
     __hj_db_uniq | cut -d: -f1  
 end 
 
+# List all location paths
+function __hj_list_paths 
+    cut -d: -f2- (__hj_setupdb)
+end 
+
 # Look for a path in the DB.
 # If it exists, return 0 and output the nickname.
 # Otherwise non-zero (see grep)
@@ -164,21 +169,18 @@ end
 
 # Completions
 begin
-    function __hj_complete_nicks -a name description
-        complete -f -c $name -d $description -a '(__hj_list_nicks)'
-    end 
-    
-    __hj_complete_nicks    jj  'Jump to a bookmark'
-    __hj_complete_nicks    jp  'Jump to a bookmark using pushd'
-
-    function __hj_list_nicks_paths
-        __hj_list_nicks 
-        cut -d: -f2- (__hj_setupdb)
+    function __hj_complete_nicks -a name 
+        complete -f -c $name -d 'Bookmark' -a '(__hj_list_nicks)'
     end 
 
-    function __hj_complete_nicks_paths -a name description
-        complete -c $name -d $description -a '(__hj_complete_nicks_paths)'
+    function __hj_complete_paths -a name 
+        complete -f -c $name -d 'Saved Path' -a '(__hj_list_paths)'
     end 
+        
+    __hj_complete_nicks     jj
+    __hj_complete_nicks     jp 
 
-    __hj_complete_nicks_paths   jf  'Forget a bookmark or the current path'
+    __hj_complete_nicks     jf 
+    __hj_complete_paths     jf
+
 end 
