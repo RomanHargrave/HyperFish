@@ -165,7 +165,7 @@ end
 # Completions
 begin
     function __hj_complete_nicks -a name description
-        complete -c $name -d $description -a '(__hj_list_nicks)'
+        complete -f -c $name -d $description -a '(__hj_list_nicks)'
     end 
     
     __hj_complete_nicks    jj  'Jump to a bookmark'
