@@ -1,0 +1,3 @@
+# OMF Loadfile
+set basedir     (dirname (status -f))
+source $basedir/hyperjump.fish
